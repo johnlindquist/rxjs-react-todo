@@ -4,6 +4,8 @@ import {
 } from "recompose"
 import * as R from "ramda"
 
+import { dispatch, store$ } from "../store"
+
 const {
   handler: setState,
   stream: setState$
@@ -18,5 +20,5 @@ const state$ = setState$.startWith({
 })
 
 export default mapPropsStream(props$ =>
-  props$.combineLatest(state$, R.merge)
+  props$.combineLatest(store$, state$).map(R.mergeAll)
 )
